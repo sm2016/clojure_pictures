@@ -1,14 +1,17 @@
 # clojure_pictures
 
-FIXME: description
+Verify that two pictures the same, comparing pictures by width, height, and pixel by pixel.
 
 ## Installation
 
 Download from http://example.com/FIXME.
+## Requirements
+
+The application requires Leiningen 2.0.0 or later.
 
 ## Usage
 
-FIXME: explanation
+To start application, open command line, and navigate to the application folder. Then input command: lein run and follow the instructions.
 
     $ java -jar clojure_pictures-0.1.0-standalone.jar [args]
 
