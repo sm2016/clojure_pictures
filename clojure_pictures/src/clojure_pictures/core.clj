@@ -1,8 +1,34 @@
-(ns clojure-pictures.core
+(ns sifrovanje.core
   (:gen-class))
 
 (use 'mikera.image.core)
 
+
+(def file-with-cryptocode 
+  (clojure.java.io/reader (clojure.java.io/file "cryptocode.txt")))
+
+(defn read-file 
+  [file-with-cryptocode]
+  (line-seq file-with-cryptocode))
+
+(def read-raw-cryptocode 
+  (read-file file-with-cryptocode))
+
+(defn to-int [x]
+ (java.lang.Integer/parseInt x)) 
+
+(defn read-crypto-data [contents-file]
+  (reduce (fn [acc row]
+            (let [[crypto-number crypto-mark] (clojure.string/split row #"'")]
+              (assoc acc (to-int crypto-number)
+                     {:id (to-int crypto-number)
+                      :name crypto-mark})))
+          {} contents-file))
+
+; u crypto-data mi se nalazi mapa sa crypto kodom
+(def crypto-data (read-crypto-data read-raw-cryptocode))
+
+;(println crypto-data)
 
 (defn check-pixels
   "Verify that the pixels of the pictures are same"
@@ -68,12 +94,32 @@
   (let [path (String. (get-input 200))] 
     (def buffer-picture-second (load-image path)))
   (check-width buffer-picture-first buffer-picture-second)) 
-	
-(defn -main
-  "Main method"
-  [& args]
-  (println "Welcome to my programm!")
-  (upload-pictures))
 
+(defn upload-pictures-and-message
+  []
+  (println "Enter the path to the image:")
+  (let [path (String. (get-input 200))]
+    (def buffer-picture-first (load-image path)))
+  
+ (println "Enter the message:")
+ (let [message (String. (get-input 200))] 
+   (def secret-message message))
+ (println secret-message))
 
+(defn selection-mod-work
+ []
+ (println "1 - Decoding")
+ (println "2 - Encoding")
+ (let [choice (String. (get-input 1))]
+   (if (= "1" choice)
+     (upload-pictures)
+     (if (= "2" choice)
+       (upload-pictures-and-message)
+       (println "Error while selecting modes!")))))
 
+ (defn -main 
+   [& args] 
+   (println "Welcome to my programm!")
+ (println "Select mode:")
+   (selection-mod-work)
+  ) 
