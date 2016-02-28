@@ -28,6 +28,7 @@
                       :name crypto-mark})))
           {} contents-file))
 
+; u crypto-data mi se nalazi mapa sa crypto kodom
 (def crypto-data (read-crypto-data read-raw-cryptocode))
 
 (def crypto-maps {})
