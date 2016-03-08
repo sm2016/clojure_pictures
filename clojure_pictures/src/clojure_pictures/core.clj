@@ -1,8 +1,9 @@
 (ns clojure_pictures.core
-  (:gen-class))
+  (:gen-class)
+  (:use [clojure.java.io :only (file)])
+  (:import javax.imageio.ImageIO))
 
 (use 'mikera.image.core)
-(require '[mikera.image.filters :as filt])
 
 (defn to-int [x]
  (java.lang.Integer/parseInt x))
@@ -152,10 +153,10 @@
   []
   (println "Enter the path to the basic picture:")
   (let [path (String. (get-input 200))] 
-    (def buffer-picture-first (load-image path)))
+    (def buffer-picture-first (-> path file ImageIO/read)))
   (println "Enter the path to the second/crypt picture:")
   (let [path (String. (get-input 200))] 
-    (def buffer-picture-second (load-image path)))
+    (def buffer-picture-second (-> path file ImageIO/read)))
   (check-width buffer-picture-first buffer-picture-second)) 
 
 (defn upload-pictures-and-message
@@ -163,7 +164,7 @@
   []
   (println "Enter the path to the picture:")
   (let [path (String. (get-input 200))]
-    (def buffer-picture-first (load-image path)))
+    (def buffer-picture-first (-> path file ImageIO/read)))
   (println "Enter the message, save (File - Save as) and close the picture")
   (let [message (String. (get-input-message 200))] 
     (encoding-message message)))
