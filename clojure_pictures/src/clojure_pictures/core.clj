@@ -153,10 +153,10 @@
   []
   (println "Enter the path to the basic picture:")
   (let [path (String. (get-input 200))] 
-    (def buffer-picture-first (-> path file ImageIO/read)))
+    (def buffer-picture-first (ImageIO/read (java.io.File. path))))
   (println "Enter the path to the second/crypt picture:")
   (let [path (String. (get-input 200))] 
-    (def buffer-picture-second (-> path file ImageIO/read)))
+    (def buffer-picture-second (ImageIO/read (java.io.File. path))))
   (check-width buffer-picture-first buffer-picture-second)) 
 
 (defn upload-pictures-and-message
@@ -164,7 +164,7 @@
   []
   (println "Enter the path to the picture:")
   (let [path (String. (get-input 200))]
-    (def buffer-picture-first (-> path file ImageIO/read)))
+    (def buffer-picture-first (ImageIO/read (java.io.File. path))))
   (println "Enter the message, save (File - Save as) and close the picture")
   (let [message (String. (get-input-message 200))] 
     (encoding-message message)))
