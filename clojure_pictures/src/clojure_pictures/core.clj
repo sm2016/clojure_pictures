@@ -137,7 +137,7 @@
     (let [input (clojure.string/trim (read-line))] 
       (if (empty? input) 
         default 
-        (clojure.string/lower-case input))))) 
+        (str input))))) 
 
 (defn get-input-message 
    "Waits for user to enter text and hit enter, then cleans the input" 
